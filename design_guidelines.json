@@ -1,0 +1,150 @@
+{
+  "design_system": {
+    "name": "Cyber-Linguist",
+    "description": "A dark, futuristic, and focused interface for mastering pronunciation. Uses deep blacks, glowing neons, and precise typography to create a 'pro-tool' feel.",
+    "typography": {
+      "font_family": {
+        "heading": "Space Grotesk, sans-serif",
+        "body": "Inter, sans-serif",
+        "mono": "JetBrains Mono, monospace"
+      },
+      "scale": {
+        "h1": "text-4xl md:text-6xl font-bold tracking-tight",
+        "h2": "text-3xl md:text-4xl font-semibold tracking-tight",
+        "h3": "text-2xl font-medium tracking-tight",
+        "body": "text-base md:text-lg leading-relaxed",
+        "caption": "text-sm text-muted-foreground",
+        "mono": "font-mono text-sm"
+      }
+    },
+    "colors": {
+      "palette": {
+        "background": "#09090b",
+        "surface": "#18181b",
+        "surface_highlight": "#27272a",
+        "primary": "#06b6d4",
+        "primary_foreground": "#ffffff",
+        "secondary": "#8b5cf6",
+        "secondary_foreground": "#ffffff",
+        "success": "#22c55e",
+        "error": "#ef4444",
+        "warning": "#f59e0b",
+        "text": "#f4f4f5",
+        "text_muted": "#a1a1aa",
+        "border": "#27272a"
+      },
+      "usage": {
+        "background": "bg-[#09090b]",
+        "card": "bg-[#18181b] border border-[#27272a]",
+        "primary_button": "bg-cyan-500 hover:bg-cyan-600 text-white shadow-[0_0_15px_rgba(6,182,212,0.5)] transition-all",
+        "secondary_button": "bg-zinc-800 hover:bg-zinc-700 text-white border border-zinc-700",
+        "success_text": "text-green-500",
+        "error_text": "text-red-500 line-through decoration-red-500/50"
+      }
+    },
+    "layout": {
+      "spacing": {
+        "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+        "section": "py-12 md:py-24",
+        "card_padding": "p-6 md:p-8"
+      },
+      "grid": {
+        "dashboard": "grid grid-cols-1 md:grid-cols-12 gap-6",
+        "hero": "flex flex-col items-center justify-center min-h-[60vh] text-center space-y-8"
+      },
+      "border_radius": {
+        "card": "rounded-xl",
+        "button": "rounded-full md:rounded-lg",
+        "input": "rounded-md"
+      }
+    },
+    "visual_enhancers": {
+      "glassmorphism": "backdrop-blur-xl bg-black/40 border border-white/10",
+      "neon_glow": "shadow-[0_0_20px_rgba(6,182,212,0.3)]",
+      "gradient_text": "bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-violet-400",
+      "noise_texture": "before:absolute before:inset-0 before:bg-[url('/noise.png')] before:opacity-[0.03] before:pointer-events-none"
+    },
+    "animation": {
+      "transitions": "transition-all duration-300 ease-out",
+      "hover_lift": "hover:-translate-y-1 hover:shadow-lg",
+      "pulse_recording": "animate-pulse shadow-[0_0_30px_rgba(239,68,68,0.6)]"
+    }
+  },
+  "components": [
+    {
+      "name": "PronunciationCard",
+      "path": "src/components/PronunciationCard.js",
+      "description": "The main interaction area. Displays the text to read and handles recording logic.",
+      "styles": "bg-card text-card-foreground rounded-xl border border-border shadow-sm p-8 flex flex-col items-center gap-6 relative overflow-hidden",
+      "features": [
+        "Large typography for the target sentence",
+        "Visual feedback (Green/Red highlights) on individual words",
+        "Recording state indicator (Pulse animation)"
+      ]
+    },
+    {
+      "name": "RecordingButton",
+      "path": "src/components/RecordingButton.js",
+      "description": "A prominent, circular button for toggling recording.",
+      "styles": "w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 shadow-lg",
+      "variants": {
+        "idle": "bg-cyan-500 hover:bg-cyan-400 text-white shadow-cyan-500/20",
+        "recording": "bg-red-500 text-white shadow-red-500/50 animate-pulse scale-110"
+      }
+    },
+    {
+      "name": "FeedbackPanel",
+      "path": "src/components/FeedbackPanel.js",
+      "description": "Displays detailed analysis after recording stops.",
+      "styles": "bg-zinc-900/50 backdrop-blur-md border border-zinc-800 rounded-lg p-6 w-full max-w-2xl mt-8",
+      "features": [
+        "Score display (Circle progress or huge number)",
+        "List of mispronounced words with 'Play Correct' buttons",
+        "Comparison view: Expected vs. Spoken"
+      ]
+    },
+    {
+      "name": "HistoryGrid",
+      "path": "src/components/HistoryGrid.js",
+      "description": "A Bento-grid style layout for past attempts.",
+      "styles": "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4",
+      "item_style": "bg-card hover:bg-accent/50 transition-colors rounded-lg p-4 border border-border flex flex-col gap-2"
+    }
+  ],
+  "accessibility": {
+    "contrast": "Ensure text-to-background contrast ratio of at least 4.5:1. Use lighter grays (Zinc-300/400) for secondary text, not dark grays.",
+    "focus_states": "Visible focus rings (ring-2 ring-cyan-500 ring-offset-2 ring-offset-background) on all interactive elements.",
+    "aria_labels": "All icon-only buttons (Mic, Play) must have aria-label attributes.",
+    "keyboard_nav": "Ensure the recording can be toggled via Spacebar or Enter when focused."
+  },
+  "assets": {
+    "fonts": [
+      "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    ],
+    "icons": "Use 'lucide-react' for all icons (Mic, Play, Pause, RefreshCw, Trophy, History, Activity).",
+    "images": []
+  },
+  "instructions_to_main_agent": [
+    "1. INSTALL FONTS: Add the Google Fonts link to the <head> of public/index.html immediately.",
+    "2. CONFIGURE TAILWIND: Update tailwind.config.js to include the custom colors (cyan-500, zinc-950, etc.) and font families (Space Grotesk, Inter).",
+    "3. DARK MODE DEFAULT: Ensure the app defaults to dark mode. The HTML tag should have 'class=\"dark\"' or logic to apply it.",
+    "4. NO GRADIENT TEXT ON INPUTS: Ensure input fields have solid text colors for readability.",
+    "5. USE LUCIDE ICONS: Import icons from 'lucide-react'. Do not use emojis for UI controls.",
+    "6. ERROR HANDLING: If Web Speech API is not supported (e.g., some browsers), show a graceful fallback or alert.",
+    "7. MICRO-INTERACTIONS: Add 'transform active:scale-95' to all buttons for a tactile feel.",
+    "8. PREVENT LAYOUT SHIFT: Reserve space for the feedback panel so the UI doesn't jump when it appears."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "- Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients.",
+    "- Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "- Create depth through layered design elements with z-index hierarchy.",
+    "- Use glass-morphism effects with backdrop filters (12-24px blur).",
+    "- You MUST NOT apply universal transition. Eg: transition: all. This results in breaking transforms. Always add transitions for specific interactive elements like button, input excluding transforms.",
+    "- You MUST NOT center align the app container, ie do not add .App { text-align: center; } in the css file. This disrupts the human natural reading flow of text.",
+    "- Always use modern button styles like pill-shaped, or sharp button with interaction animations & color relevant to the app style.",
+    "- NEVER: use AI assistant Emoji characters for icons.",
+    "- Every interaction needs micro-animations - hover states, transitions, parallax effects, and entrance animations. Static = dead.",
+    "- Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "- Subtle grain textures, noise overlays, custom cursors, selection states, and loading animations: separates good from extraordinary."
+  ]
+}
