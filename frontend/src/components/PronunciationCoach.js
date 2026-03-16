@@ -320,12 +320,17 @@ export default function PronunciationCoach() {
           <TabsContent value="practice" className="space-y-8 fade-in">
             {/* Browser Support Warning */}
             {!speechSupported && (
-              <Card className="bg-red-500/10 border-red-500/30">
-                <CardContent className="p-4 flex items-center gap-3">
-                  <AlertCircle className="w-5 h-5 text-red-400" />
-                  <p className="text-red-400">
-                    Speech recognition is not supported in this browser. Please use Chrome or Edge.
-                  </p>
+              <Card className="bg-red-500/10 border-red-500/30 shadow-[0_0_20px_rgba(239,68,68,0.2)]">
+                <CardContent className="p-6 flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0">
+                    <AlertCircle className="w-6 h-6 text-red-400" />
+                  </div>
+                  <div>
+                    <p className="text-red-400 font-medium">Speech Recognition Not Available</p>
+                    <p className="text-red-400/70 text-sm mt-1">
+                      This feature requires Chrome, Edge, or Safari browser with microphone access.
+                    </p>
+                  </div>
                 </CardContent>
               </Card>
             )}
@@ -540,9 +545,33 @@ export default function PronunciationCoach() {
           <TabsContent value="history" className="space-y-6 fade-in">
             <div className="flex items-center justify-between">
               <h2 className="text-xl font-heading font-semibold">Practice History</h2>
-              {attempts.length > 0 && (
-                <p className="text-sm text-zinc-500">{attempts.length} attempts recorded</p>
-              )}
+              <div className="flex items-center gap-4">
+                {attempts.length > 0 && (
+                  <>
+                    <p className="text-sm text-zinc-500">{attempts.length} attempts recorded</p>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={async () => {
+                        if (window.confirm("Clear all practice history?")) {
+                          try {
+                            await axios.delete(`${API}/attempts`);
+                            fetchAttempts();
+                            fetchStats();
+                            toast.success("History cleared");
+                          } catch (error) {
+                            toast.error("Failed to clear history");
+                          }
+                        }
+                      }}
+                      className="border-red-500/30 text-red-400 hover:bg-red-500/20 btn-press"
+                      data-testid="clear-history-btn"
+                    >
+                      Clear History
+                    </Button>
+                  </>
+                )}
+              </div>
             </div>
 
             {attempts.length === 0 ? (
@@ -594,16 +623,16 @@ export default function PronunciationCoach() {
               </ScrollArea>
             )}
 
-            {/* Stats Summary */}
+            {/* Stats Summary - Shown at top */}
             {stats && stats.total_attempts > 0 && (
-              <Card className="bg-zinc-900/50 border-zinc-800">
-                <CardHeader>
+              <Card className="bg-zinc-900/50 border-zinc-800 sticky top-0 z-10">
+                <CardHeader className="pb-4">
                   <CardTitle className="text-lg flex items-center gap-2">
                     <Activity className="w-5 h-5 text-cyan-400" />
                     Statistics
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-0">
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                     <div className="text-center">
                       <p className="text-3xl font-bold text-cyan-400">{stats.total_attempts}</p>
